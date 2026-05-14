@@ -1,0 +1,57 @@
+rules:
+  - id: "validate-and-reject-unknown-config-fields"
+    name: "Reject unknown and malformed config fields during config load"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Configuration parsing must not silently drop unknown keys, malformed enum values, or invalid object shapes; these should produce explicit errors or surfaced warnings instead of defaulting to None."
+    llm:
+      prompt: "Configuration parsing must not silently drop unknown keys, malformed enum values, or invalid object shapes; these should produce explicit errors or surfaced warnings instead of defaulting to None."
+  - id: "preserve-rollout-backward-compat-deserialization"
+    name: "Keep backward-compatible deserialization for persisted protocol/config shapes"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "When renaming or reshaping serialized enums/fields used in persisted rollouts or thread state, keep deserialize aliases or compatibility loaders so older saved data can still be read."
+    llm:
+      prompt: "When renaming or reshaping serialized enums/fields used in persisted rollouts or thread state, keep deserialize aliases or compatibility loaders so older saved data can still be read."
+  - id: "require-url-validation-for-exec-server-endpoints"
+    name: "Validate exec server URL inputs"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Any exec-server URL from config or environment must be validated as a real URL before use; invalid values must be rejected early."
+    llm:
+      prompt: "Any exec-server URL from config or environment must be validated as a real URL before use; invalid values must be rejected early."
+  - id: "avoid-sensitive-command-data-in-logs"
+    name: "Do not log raw command lines in connection labels or transport errors"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Connection labels and error/log messages must avoid embedding full raw commands because they can include tokens, env assignments, or other sensitive values."
+    llm:
+      prompt: "Connection labels and error/log messages must avoid embedding full raw commands because they can include tokens, env assignments, or other sensitive values."
+  - id: "keep-preserved-path-policy-centralized"
+    name: "Use shared preserved-path policy helpers"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Preserved-path behavior (for paths like .git/.codex/.agents and related matching) must be defined in one shared helper/constant and reused across protocol and sandbox implementations to prevent policy drift."
+    llm:
+      prompt: "Preserved-path behavior (for paths like .git/.codex/.agents and related matching) must be defined in one shared helper/constant and reused across protocol and sandbox implementations to prevent policy drift."
+  - id: "sandbox-setup-fails-closed-on-critical-install-errors"
+    name: "Fail sandbox setup on critical security setup failures"
+    type: llm
+    severity: warning
+    category: "security"
+    message: "Security-critical setup steps (such as firewall/filter installation) must fail closed and block success markers when they fail, instead of silently degrading into a sticky insecure state."
+    llm:
+      prompt: "Security-critical setup steps (such as firewall/filter installation) must fail closed and block success markers when they fail, instead of silently degrading into a sticky insecure state."
+  - id: "cover-cross-platform-process-lifecycle-with-tests"
+    name: "Add regression tests for process lifecycle edge cases"
+    type: llm
+    severity: warning
+    category: "patterns"
+    message: "Changes to process spawning/teardown must include tests for timeout, out-of-order events, and platform-specific behavior (including Windows) to prevent zombie/orphan/stray process leaks."
+    llm:
+      prompt: "Changes to process spawning/teardown must include tests for timeout, out-of-order events, and platform-specific behavior (including Windows) to prevent zombie/orphan/stray process leaks."
